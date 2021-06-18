@@ -10,7 +10,7 @@
 import numpy as np
 
 def generate_separable_data(N):
-    X = 2*np.random.rand(N, 2+1)-1
+    X = 2*np.random.rand(N, 3)-1
     X[:,0] = 1.0
     xa = 2*np.random.rand() - 1
     ya = 2*np.random.rand() - 1
@@ -37,7 +37,26 @@ class LinearRegressionBinaryClassifier:
     
     def predict(self, X):
         return np.sign(X@self.w)
+   
+############## SOLVING THE PROBLEM ITSELF ######################
+E_ins = []
 
+for i in range(1000):
+    # Generate data + true target function
+    X, y, fa, fb = generate_separable_data(100)
+
+    # Create a classifier based on least squares linear regression
+    ls_classifier = LinearRegressionBinaryClassifier()
+    ls_classifier.fit(X, y)
+
+    # Find in-sample error
+    yhat = ls_classifier.predict(X)
+    E_in = np.mean(yhat != y)
+    E_ins.append(E_in)
+
+print("Mean in sample error for N=100 is", np.mean(E_ins))
+
+# plot_linearly_separable_data(X, y, fb, fa, yhat, ls_classifier.intercept, ls_classifier.slope) 
 # ############### 2ND PART OF THE SETUP: PLOTTING ###################
 # from matplotlib import pyplot as plt
 
