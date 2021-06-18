@@ -1,0 +1,1 @@
+print('Therefore, the answer to Question 2 is option (c), given that 0.1 is the closest option.')
