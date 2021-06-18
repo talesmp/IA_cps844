@@ -75,35 +75,3 @@ class LinearRegressionBinaryClassifier:
 #     plt.xlim((-2, 2))
 #     plt.ylim((-2, 2))
 #     plt.show()
-
-############## SOLVING THE PROBLEM ITSELF ######################
-E_ins = []
-E_outs = []
-
-for i in range(1000):                               #1000 EXECUTIONS OF THE EXPERIMENT
-    # Generate data + true target function
-    X, y, fa, fb = generate_separable_data(1100)    #GENERATE RANDOMLY 1100 POINTS
-    Xsample, ysample = X[0:100,:], y[0:100]         #USE 100 POINTS AS THE SAMPLE, FOR CALCULATING E_ins, JUST LIKE THE PREVIOUS PROBLEM
-    Xremaining, yremaining = X[100:,:], y[100:]     #USE THE REMAINING 1000 POINTS TO CALCULATE E_outs
-
-    # Create a classifier based on least squares linear regression
-    # using only sample
-    ls_classifier = LinearRegressionBinaryClassifier()
-    ls_classifier.fit(Xsample, ysample)
-
-    # Find out of sample error
-    yhat = ls_classifier.predict(Xremaining)
-    E_out = np.mean(yhat != yremaining)
-    E_outs.append(E_out)
-    
-    # Find in sample error
-    yhat = ls_classifier.predict(Xsample)
-    E_in = np.mean(yhat != ysample)
-    E_ins.append(E_in)
-
-#plot_linearly_separable_data(X, y, fb, fa, yhat, ls_classifier.intercept, ls_classifier.slope) 
-    
-print("Mean out of sample error for N=100 is", np.mean(E_outs))
-print("Mean in sample error for N=100 is", np.mean(E_ins))
-print("Ratio E_in/E_out is", np.mean(E_ins)/np.mean(E_outs))
-print("Ratio E_out/E_in is", np.mean(E_outs)/np.mean(E_ins))
