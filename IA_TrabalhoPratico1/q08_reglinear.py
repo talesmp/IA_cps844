@@ -10,25 +10,18 @@ import numpy as np
 
 def generate_separable_data(N):
     X = 2*np.random.rand(N, 3)-1
-    X[:,0] = 1.0
-    xa = 2*np.random.rand() - 1
+    X[:,0] = 1.0                            #SETTING THE INDEPENDENT TERM (w0 IN COLUMN 0) AS 1.0 
+    xa = 2*np.random.rand() - 1             #SINGLE PYTHON FLOAT CREATED AT RANDOM
     ya = 2*np.random.rand() - 1
     xb = 2*np.random.rand() - 1
     yb = 2*np.random.rand() - 1
-    xa, xb = min(xa, xb), max(xa, xb)
-    xa = xa
-    ya = ya
-    xb = xb
-    yb = yb
-    a = (yb-ya)/(xb-xa)
-    y = 2*(X[:,2] > ya + (X[:,1] - xa)*a)-1
-    b = ya - xa*a
+    xa, xb = min(xa, xb), max(xa, xb)       #SETTING MIN TO xa AND MAX TO xb IN THE INTERVAL AT RANDOM
+    a = (yb-ya)/(xb-xa)                     #SLOPE
+    y = 2*(X[:,2] > ya + (X[:,1] - xa)*a)-1 #DEFINING THE "COLOR"/REGION 
+    b = ya - xa*a                           #INTERCEPT
     return X, y, a, b
 
 class LinearRegressionBinaryClassifier:
-    def __init__(self):
-        pass
-    
     def fit(self, X, y):
         self.w = np.linalg.solve(X.T@X, X.T@y)
         if self.w[2]!=0:
@@ -40,18 +33,15 @@ class LinearRegressionBinaryClassifier:
 
 ############## 2ND PART OF THE SETUP: IMPLEMENTING THE PLA ################
 class PerceptronBinaryClassifier:
-    def __init__(self):
-        self.w = np.zeros((X.shape[1],1))
-    
     def fit(self, X, y, initial_weights=None):
         self.w = np.zeros((X.shape[1],1))
-        if not initial_weights is None:
+        if initial_weights is not None:
             self.w = initial_weights
         
         self.iter = 0
         while True:
             yhat = self.predict(X)
-            misclassifieds = np.nonzero(y != yhat)[0] 
+            misclassifieds = np.nonzero(y_float64 != yhat)[0] 
             if len(misclassifieds) == 0:
                 return
             i = np.random.choice(misclassifieds)
@@ -71,6 +61,7 @@ iters = []
 for i in range(1000):
     # Generate data + true target function
     X, y, fa, fb = generate_separable_data(10)
+    y_float64 = y.astype(float)
 
     # Create a classifier based on least squares linear regression
     ls_classifier = LinearRegressionBinaryClassifier()
@@ -81,9 +72,10 @@ for i in range(1000):
     pla.fit(X, y, initial_weights=ls_classifier.w)
     iters.append(pla.iter)
 
-    # pla_zeros = PerceptronBinaryClassifier()
-    # pla_zeros.fit(X, y)
-    # iters_zeros.append(pla_zeros.iter)
+    #pla_zeros = PerceptronBinaryClassifier()
+    #pla_zeros.fit(X, y)
+    #iters_zeros.append(pla_zeros.iter)
     
-print("Mean iterations to converge when using LS estimated weights:", np.mean(iters))
-#print("Mean iterations to converge when not using LS estimated weights:", np.mean(iters_zeros))
+print("\nThe mean number of iterations to converge when using Least Squares estimated weights: {:.2f} iterations.".format(np.mean(iters)))
+print('Therefore, the answer to Question 8 is option (a), given that 1 is the closest option.\n')
+print("It is worth remembering that in Questions 1, also with N=10 points, it was necessary about 10 iterations.")

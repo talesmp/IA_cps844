@@ -42,7 +42,8 @@ for i in range(100):                            #EXECUTING THE EXPERIMENT 100 TI
     yhat = lsr.predict(X)
     E_ins.append(np.mean(y != yhat))
     
-print("Mean error rate: ", np.mean(E_ins))
+print("\nThe mean error rate is {:.4f} ".format(np.mean(E_ins)))
+print('Therefore, the answer to Question 10 is option (d), given that 0.5 is the closest option.\n')
 
 # ####### PLOTTING THE GRAPH ########
 # import matplotlib.pyplot as plt

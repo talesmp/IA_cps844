@@ -9,3 +9,5 @@
 # c) Inicializando os pesos utilizando Regressao Linear, i = 10, N1 = 100 e N2 = 1000
 # d) Inicializando os pesos utilizando Regressao Linear, i = 50, N1 = 100 e N2 = 1000
 
+#Usar os conceitos de construção do PLA de Q1~4, com o ruído de Q10~12, iniciando os pesos zerados;
+#Depois usar o conceito da Q8, de inicializar com os pesos de RegLin

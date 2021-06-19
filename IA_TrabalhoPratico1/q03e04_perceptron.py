@@ -3,6 +3,9 @@
 # Informe o valor mais proximo ao seu resultado.
 # a) 50; b) 100; c) 500; d) 1000; e) 5000
 
+# 04) Qual a opcao mais se aproxima de P[f(x) != g(x)] para N = 100;
+# a) 0.001; b) 0.01; c) 0.1; d) 0.5; e)0.8
+
 import random
 import matplotlib.pyplot as plt
 import numpy as np
@@ -27,8 +30,8 @@ class Dataset:
     def __init__(self, num_points):                 #DEFINING TWO POINTS AT RANDOM AND DEFINING THE LINE
         p0 = random_point()
         p1 = random_point()
-        self.target_a = (p1[1] - p0[1]) / (p1[0] - p0[0])   # SLOPE:    A = (y1-y0)/(x1-x0) 
-        self.target_b = p0[1] - self.target_a * p0[0]       # LINE:     B = y0 - A*x0 
+        self.target_a = (p1[1] - p0[1]) / (p1[0] - p0[0])   # SLOPE:        A = (y1-y0)/(x1-x0) 
+        self.target_b = p0[1] - self.target_a * p0[0]       # INTERCEPT:    B = y0 - A*x0 
         
         self.xs = []
         self.ys = []
@@ -57,7 +60,7 @@ class PLA:
         self.w = np.array([0, 0, 0])    #INITIALIZING AN ARRAY/LIST OF WEIGHTS [w0, w1, w2]
         self.dataset = dataset
         
-    def fit(self, plot_iters=False):    #RUNNING THE FITTING ROUTINE< 
+    def fit(self, plot_iters=False):    #RUNNING THE FITTING ROUTINE 
         self.w = np.array([0, 0, 0])    #INITIALIZING WITH [w0, w1, w2] = [0, 0, 0]
         num_iters = 0
         
@@ -90,7 +93,7 @@ class PLA:
 
 #SETTING THE ENVIRONMENT FOR ANSWERING THE QUESTION
 n_points_training = 100         #N = NUMBER OF POINTS IN THE TRAINING SET
-n_plots_wanted = 1              #NUMBER OF SCATTER PLOTS WANTED THROUGHOUT THE EXPERIMENT
+n_plots_wanted = 0              #NUMBER OF SCATTER PLOTS WANTED THROUGHOUT THE EXPERIMENT
 n_exec_experiment = 1000        #GIVEN BY THE REQUIREMENTS OF THE QUESTION
 n_points_verification = 1000    #GIVEN BY THE REQUIREMENTS OF THE QUESTION
 

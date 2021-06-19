@@ -64,4 +64,5 @@ for i in range(1000):                                   #EXECUTING THE EXPERIMEN
     E_out = np.mean(y_test != y_predicted)
     E_outs.append(E_out)
     
-print("Mean out of sample error is:", np.mean(E_outs))
+print("\nThe mean out of sample error is {:.4f} ".format(np.mean(E_outs)))
+print('Therefore, the answer to Question 12 is option (b), given that 0.1 is the closest option.\n')

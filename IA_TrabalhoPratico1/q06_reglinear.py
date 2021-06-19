@@ -27,13 +27,12 @@ def generate_separable_data(N):
     return X, y, a, b
 
 class LinearRegressionBinaryClassifier:
-    def __init__(self):
-        pass
     
     def fit(self, X, y):
         self.w = np.linalg.solve(X.T@X, X.T@y)
-        self.intercept = -self.w[0]/self.w[2]
-        self.slope = -self.w[1]/self.w[2]
+        if self.w[2]!=0:
+            self.intercept = -self.w[0]/self.w[2]
+            self.slope = -self.w[1]/self.w[2]
     
     def predict(self, X):
         return np.sign(X@self.w)
@@ -42,8 +41,7 @@ class LinearRegressionBinaryClassifier:
 E_ins = []
 
 for i in range(1000):
-    # Generate data + true target function
-    X, y, fa, fb = generate_separable_data(100)
+    X, y, fa, fb = generate_separable_data(100)     # GENERATING THE DATASET AND THE TRUE TARGET FUNCTION
 
     # Create a classifier based on least squares linear regression
     ls_classifier = LinearRegressionBinaryClassifier()
@@ -54,8 +52,10 @@ for i in range(1000):
     E_in = np.mean(yhat != y)
     E_ins.append(E_in)
 
-print("Mean in sample error for N=100 is", np.mean(E_ins))
+print('\nThe mean value for in sample error for N=100 points after 1000 executions is {:.4f}'.format(np.mean(E_ins)))
+print('Therefore, the answer to Question 6 is option (c), given that 0.01 is the closest option. \nAlthough, option (d)=0.1 could also be considered, depending on the necessity and interpretation given.\n')
 
+# ############### IF PLOTTING IS WANTED, UNCOMMENT THIS PART ########
 # plot_linearly_separable_data(X, y, fb, fa, yhat, ls_classifier.intercept, ls_classifier.slope) 
 # ############### 2ND PART OF THE SETUP: PLOTTING ###################
 # from matplotlib import pyplot as plt
